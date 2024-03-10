@@ -1,18 +1,28 @@
 import React, { useState } from "react";
 import { Link } from "react-router-dom";
-import axios from "axios";
+// import axios from "axios";
 
 const register = () => {
-  const [name, setName] = useState();
-  const [email, setEmail] = useState();
-  const [password, setPassword] = useState();
+  const [newUser, setNewUser] = useState({
+    name: "",
+    email: "",
+    password: "",
+    id: "",
+  });
+
+  const handleChange = (e) => {
+    const name = e.target.name;
+    const val = e.target.value;
+    setNewUser({ ...newUser, [name]: val });
+  };
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    axios
-      .post("httmp://localhost:3001/register", { name, email, password })
-      .then((result) => console.log(result))
-      .catch((err) => console.log("error", err));
+    // axios
+    //   .post("httmp://localhost:3001/register", { name, email, password })
+    //   .then((result) => console.log(result))
+    //   .catch((err) => console.log("error", err));
+    console.log(newUser);
   };
 
   return (
@@ -26,12 +36,11 @@ const register = () => {
               <br />
               <input
                 type="text"
-                name="Name"
+                name="name"
                 placeholder="Enter Name"
                 className="w-100"
-                onChange={(e) => {
-                  setName(e.target.value);
-                }}
+                value={newUser.name}
+                onChange={handleChange}
               />
             </div>
             <div className="w-100 pt-2">
@@ -39,12 +48,11 @@ const register = () => {
               <br />
               <input
                 type="email"
-                name="Email"
+                name="email"
                 placeholder="Enter Email"
                 className="w-100"
-                onChange={(e) => {
-                  setEmail(e.target.value);
-                }}
+                value={newUser.email}
+                onChange={handleChange}
               />
             </div>
             <div className="w-100 pt-2">
@@ -52,12 +60,11 @@ const register = () => {
               <br />
               <input
                 type="password"
-                name="Password"
+                name="password"
                 placeholder="Enter Password"
                 className="w-100"
-                onChange={(e) => {
-                  setPassword(e.target.value);
-                }}
+                value={newUser.password}
+                onChange={handleChange}
               />
             </div>
             <button type="submit" className="w-100 bg-success mt-4 py-1">
@@ -65,7 +72,7 @@ const register = () => {
             </button>
           </form>
           <p>Already Have an Account !</p>
-          <Link to="/">
+          <Link to="/login">
             <button className="py-1 w-100">Login</button>
           </Link>
         </div>
